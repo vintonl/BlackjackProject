@@ -11,19 +11,19 @@ public class Table {
 
 	private Dealer dealer;
 	private Player player;
-	private Scanner scanner = new Scanner(System.in);
 	private Venue venue = new Venue();
 	private Deck deck = new Deck();
-	private final int MIN_DECK_SIZE = 15;
+	private final int MIN_DECK_SIZE = 13;
+	private final int DEALER_HIT_MIN = 17;
 
-	public void startBlackJack() {
+	public void startBlackJack(Scanner scanner) {
 
 		System.out.println("Welcome to BlackJack!");
-		play();
+		play(scanner);
 
 	}
 
-	private void play() {
+	private void play(Scanner scanner) {
 		dealer = new Dealer();
 		player = new Player();
 
@@ -39,11 +39,11 @@ public class Table {
 		dealer.addCardPlayer(dealer.dealCards());
 		dealer.blindFirstCard();
 
-		checkForBlackJack();
-		hitOrStay();
+		checkForBlackJack(scanner);
+		hitOrStay(scanner);
 	}
 
-	private void hitOrStay() {
+	private void hitOrStay(Scanner scanner) {
 		printCurrentValue();
 		System.out.println("Do you want to hit or stay?");
 		String hs = scanner.next().toLowerCase();
@@ -51,15 +51,15 @@ public class Table {
 		switch (hs) {
 		case "h":
 		case "hit":
-			hit();
+			hit(scanner);
 			break;
 		case "s":
 		case "stay":
-			stay();
+			stay(scanner);
 			break;
 		default:
 			System.out.println("Input error: " + hs + "\nPlease try again.");
-			hitOrStay();
+			hitOrStay(scanner);
 			break;
 		}
 	}
@@ -68,85 +68,85 @@ public class Table {
 		System.out.println("Player's hand value: " + player.askHandValue());
 	}
 
-	private void hit() {
+	private void hit(Scanner scanner) {
 		player.addCardPlayer(dealer.dealCards());
 		System.out.println("\tPlayer's cards: " + player);
-		checkValues();
-		dealerPlay();
-		hitOrStay();
+		checkValues(scanner);
+		dealerPlay(scanner);
+		hitOrStay(scanner);
 	}
 
-	private void stay() {
-		dealerPlayAfterStay();
+	private void stay(Scanner scanner) {
+		dealerPlayAfterStay(scanner);
 	}
 
-	private void dealerPlay() {
-		if (dealer.askHandValue() <= 17) {
+	private void dealerPlay(Scanner scanner) {
+		if (dealer.askHandValue() < DEALER_HIT_MIN) {
 			dealer.addCardPlayer(dealer.dealCards());
 			dealer.blindFirstCard();
 		}
-		checkValues();
-		checkDraw();
+		checkValues(scanner);
+		checkDraw(scanner);
 	}
 
-	private void dealerPlayAfterStay() {
-		if (dealer.askHandValue() <= 17) {
+	private void dealerPlayAfterStay(Scanner scanner) {
+		if (dealer.askHandValue() < DEALER_HIT_MIN) {
 			dealer.addCardPlayer(dealer.dealCards());
 			dealer.blindFirstCard();
 		}
-		checkValues();
-		checkDraw();
-		dealerPlay();
+		checkValues(scanner);
+		checkDraw(scanner);
+		dealerPlay(scanner);
 	}
 
-	private void checkDraw() {
+	private void checkDraw(Scanner scanner) {
 		if (player.askHandValue() == dealer.askHandValue()) {
 			System.out.println("It is a tie. ");
-			playAgain();
+			playAgain(scanner);
 		}
-		checkHighest();
+		checkHighest(scanner);
 	}
 
-	private void checkHighest() {
+	private void checkHighest(Scanner scanner) {
 		if (player.askHandValue() > dealer.askHandValue()) {
 			System.out.println("You win!");
-			playAgain();
+			playAgain(scanner);
 		} else {
 			System.out.println("You have a lower hand value and loose.");
-			playAgain();
+			playAgain(scanner);
 		}
 
 	}
 
-	private void checkValues() {
+	private void checkValues(Scanner scanner) {
 		if (player.isTwentyOne() || dealer.isBust()) {
 			System.out.println("You win!");
-			playAgain();
+			playAgain(scanner);
 		}
 
 		if (dealer.isTwentyOne() || player.isBust()) {
 			System.out.println("You loose, dealer wins.");
-			playAgain();
+			playAgain(scanner);
 		}
 
 	}
 
-	private void playAgain() {
+	private void playAgain(Scanner scanner) {
 		System.out.println("Do you want to play another hand of BlackJack?");
 		String again = scanner.next().toLowerCase();
-
 		switch (again) {
 		case "yes":
 		case "y":
-			if (deck.checkDeckSize() >= MIN_DECK_SIZE) {
+			if (deck.checkDeckSize() > MIN_DECK_SIZE) {
 				player.clear();
 				dealer.clear();
-				play();
+				play(scanner);
 			} else {
 				player.clear();
 				dealer.clear();
 				deck.newDeck();
-				play();
+				System.out.println("Starting a new deck of cards.");
+				play(scanner);
 			}
 			break;
 		case "no":
@@ -155,21 +155,21 @@ public class Table {
 			break;
 		default:
 			System.out.println("Input error: " + again + "\nPlease try again.");
-			playAgain();
+			playAgain(scanner);
 			break;
 		}
 	}
 
-	private void checkForBlackJack() {
+	private void checkForBlackJack(Scanner scanner) {
 
 		if (player.isBlackJack()) {
 			System.out.println("Players wins with BlackJack!");
-			playAgain();
+			playAgain(scanner);
 		}
 
 		if (dealer.isBlackJack()) {
 			System.out.println("You loose, dealer wins with BlackJack.");
-			playAgain();
+			playAgain(scanner);
 		}
 
 	}
