@@ -27,6 +27,7 @@ public class Table {
 		dealer = new Dealer();
 		player = new Player();
 
+		System.out.println();
 		player.addCardPlayer(dealer.dealCards());
 		System.out.println("\tPlayer's " + player);
 
@@ -45,6 +46,7 @@ public class Table {
 
 	private void hitOrStay(Scanner scanner) {
 		printCurrentValue();
+		System.out.println();
 		System.out.println("Do you want to hit or stay?");
 		String hs = scanner.next().toLowerCase();
 
@@ -65,7 +67,8 @@ public class Table {
 	}
 
 	private void printCurrentValue() {
-		System.out.println("Player's hand value: " + player.askHandValue());
+		System.out.println();
+		System.out.println("\tPlayer's hand value: " + player.askHandValue());
 	}
 
 	private void hit(Scanner scanner) {
@@ -92,7 +95,7 @@ public class Table {
 	private void dealerPlayAfterStay(Scanner scanner) {
 		if (dealer.askHandValue() < DEALER_HIT_MIN) {
 			dealer.addCardPlayer(dealer.dealCards());
-			dealer.blindFirstCard();
+			System.out.println("\tDealer's " + dealer);
 		}
 		checkValues(scanner);
 		checkDraw(scanner);
@@ -109,23 +112,41 @@ public class Table {
 
 	private void checkHighest(Scanner scanner) {
 		if (player.askHandValue() > dealer.askHandValue()) {
-			System.out.println("You win!");
+			System.out.println("You win with a higher hand value!");
 			playAgain(scanner);
 		} else {
-			System.out.println("You have a lower hand value and loose.");
+			System.out.println("You loose with a lower hand value.");
 			playAgain(scanner);
 		}
 
 	}
 
 	private void checkValues(Scanner scanner) {
-		if (player.isTwentyOne() || dealer.isBust()) {
-			System.out.println("You win!");
+		if (player.isTwentyOne()) {
+			System.out.println("You win with 21!");
+			playAgain(scanner);
+		} else if (dealer.isBust()) {
+			System.out.println("Dealer hand is a bust, and you win!");
 			playAgain(scanner);
 		}
 
-		if (dealer.isTwentyOne() || player.isBust()) {
-			System.out.println("You loose, dealer wins.");
+		if (dealer.isTwentyOne()) {
+			System.out.println("You loose, and the dealer wins with 21.");
+			playAgain(scanner);
+		} else if (player.isBust()) {
+			System.out.println("Your hand is a bust, and the dealer wins.");
+			playAgain(scanner);
+		}
+
+	}
+
+	private void checkForBlackJack(Scanner scanner) {
+
+		if (player.isBlackJack()) {
+			System.out.println("You win with BlackJack!");
+			playAgain(scanner);
+		} else if (dealer.isBlackJack()) {
+			System.out.println("The dealer wins with BlackJack.");
 			playAgain(scanner);
 		}
 
@@ -137,7 +158,7 @@ public class Table {
 		switch (again) {
 		case "yes":
 		case "y":
-			if (deck.checkDeckSize() > MIN_DECK_SIZE) {
+			if (deck.checkDeckSize() < MIN_DECK_SIZE) {
 				player.clear();
 				dealer.clear();
 				play(scanner);
@@ -151,6 +172,8 @@ public class Table {
 			break;
 		case "no":
 		case "n":
+			player.clear();
+			dealer.clear();
 			venue.venueMenu(scanner);
 			break;
 		default:
@@ -160,18 +183,5 @@ public class Table {
 		}
 	}
 
-	private void checkForBlackJack(Scanner scanner) {
-
-		if (player.isBlackJack()) {
-			System.out.println("Players wins with BlackJack!");
-			playAgain(scanner);
-		}
-
-		if (dealer.isBlackJack()) {
-			System.out.println("You loose, dealer wins with BlackJack.");
-			playAgain(scanner);
-		}
-
-	}
 
 }

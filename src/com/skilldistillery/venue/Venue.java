@@ -6,13 +6,11 @@ import com.skilldistillery.blackjack.Table;
 
 public class Venue {
 
-	private Table table;
-
-	boolean start = true;
+	private static Table table;
 
 	public static void main(String[] args) {
 		Venue venue = new Venue();
-		venue.table = new Table();
+		table = new Table();
 		venue.run();
 	}
 
@@ -24,7 +22,6 @@ public class Venue {
 	}
 
 	public void venueMenu(Scanner scanner) {
-
 		System.out.println();
 		System.out.println("Please choose from the options below.");
 		System.out.println("1. Play BackJack.");
@@ -34,6 +31,7 @@ public class Venue {
 
 		try {
 			selection = scanner.nextInt();
+
 		} catch (Exception e) {
 			System.err.println("Error: Unexpected value: " + selection);
 			venueMenu(scanner);
@@ -51,7 +49,6 @@ public class Venue {
 			System.err.println("Error: Unexpected value: " + selection);
 			venueMenu(scanner);
 		}
-
 	}
 
 }
