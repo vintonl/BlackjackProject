@@ -15,17 +15,14 @@ First, the user enters their menu selection. The user can choose to:
 Blackjack starts the game with the player playing against the dealer. The dealer deals cards to the player and the dealer’s hand.
 
 Game table information to know:
-1. Card point values:
- a. Aces will have a value of 11.
- b. Jacks, Queens, and Kings are each worth 10 points.
- c. All other cards are face value.
+1. Card point values: Aces will have a value of 11, Jacks, Queens, and Kings are each worth 10 points. All other cards are face value.
 2. The goal is to get 21 points or be the closest to 21 without going over.
 3. We will be playing with one deck of 52 cards.
 4. The dealer will let you know when starting a new deck.
 
 While playing, the player will have the option to hit, be given another card, or stay. The program will then calculate if the player will be asked again to hit or stay, or if there is a winner.
 
-The player will be asked if they want to play again at the end of every round. If they play again, they will play with the same deck unless there are fewer than 13 cards left at the end of the prior game.  
+The player will be asked if they want to play again at the end of every round. If they play again, they will play with the same deck unless there are fewer than 13 cards left at the end of the prior game.
 
 ### Technologies used:
 
