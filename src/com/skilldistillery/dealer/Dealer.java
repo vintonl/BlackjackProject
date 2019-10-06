@@ -52,7 +52,7 @@ public class Dealer extends Player {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Dealer [deck=").append(deck).append("]");
+		builder.append("hand: ").append(hand).append("");
 		return builder.toString();
 	}
 

@@ -158,7 +158,7 @@ public class Table {
 		switch (again) {
 		case "yes":
 		case "y":
-			if (deck.checkDeckSize() < MIN_DECK_SIZE) {
+			if (deck.checkDeckSize() >= MIN_DECK_SIZE) {
 				player.clear();
 				dealer.clear();
 				play(scanner);

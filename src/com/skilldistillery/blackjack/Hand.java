@@ -42,7 +42,7 @@ public abstract class Hand {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("HANDHand: ").append(cards).append(".");
+		builder.append("Hand: ").append(cards).append(".");
 		return builder.toString();
 	}
 
