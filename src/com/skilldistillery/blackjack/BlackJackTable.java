@@ -18,10 +18,14 @@ public class BlackJackTable {
 
 		System.out.println("Welcome to BlackJack!");
 		System.out.println();
-		System.out.println("Table information to know:");
-		System.out.println("\t1. Aces will have a value of 11.");
-		System.out.println("\t2. We will be playing with one deck of cards.");
-		System.out.println("\t2. Dealer will let you know when starting a new deck.");
+		System.out.println("Game table information to know:");
+		System.out.println("\t1. Card point values:");
+		System.out.println("\t\ta. Aces will have a value of 11.");
+		System.out.println("\t\tb. Jacks, Queens, and Kings are each worth 10 points.");
+		System.out.println("\t\tc. All other cards are face value.");
+		System.out.println("\t2. Goal is to get 21 points or be the closest to 21 without going over.");
+		System.out.println("\t3. We will be playing with one deck of 52 cards.");
+		System.out.println("\t4. Dealer will let you know when starting a new deck.");
 		dealer = new Dealer();
 		player = new Player();
 		play(scanner);
@@ -120,8 +124,12 @@ public class BlackJackTable {
 	}
 
 	private void checkHighest(Scanner scanner) {
+		System.out.println("Dealer flips first card...");
+		dealerShowsAllCards();
+		
 		if (player.askHandValue() > dealer.askHandValue()) {
 			System.out.println("You win with a higher hand value!");
+			
 			playAgain(scanner);
 		} else {
 			System.out.println("You loose with a lower hand value.");
@@ -132,14 +140,15 @@ public class BlackJackTable {
 
 	private void checkValues(Scanner scanner) {
 		if (player.isTwentyOne()) {
+			dealerShowsAllCards();
 			System.out.println("You win with 21!");
 			playAgain(scanner);
 		} else if (dealer.isBust()) {
+			dealerShowsAllCards();
 			System.out.println("Dealer hand is a bust, and you win!");
 			playAgain(scanner);
-		}
-
-		if (dealer.isTwentyOne()) {
+		}else if (dealer.isTwentyOne()) {
+			dealerShowsAllCards();
 			System.out.println("You loose, and the dealer wins with 21.");
 			playAgain(scanner);
 		} else if (player.isBust()) {
@@ -149,15 +158,23 @@ public class BlackJackTable {
 
 	}
 
+	private void dealerShowsAllCards() {
+		System.out.println("Dealer flips first card...");
+		System.out.println("\tDealer's " + dealer);
+	}
+
 	private void checkForBlackJack(Scanner scanner) {
 
 		if (player.isBlackJack() && dealer.isBlackJack()) {
+			dealerShowsAllCards();
 			System.out.println("It's a draw! You and the dealer both have BlackJack.");
 			playAgain(scanner);
 		} else if (player.isBlackJack()) {
+			dealerShowsAllCards();
 			System.out.println("You win with BlackJack!");
 			playAgain(scanner);
 		} else if (dealer.isBlackJack()) {
+			dealerShowsAllCards();
 			System.out.println("The dealer wins with BlackJack.");
 			playAgain(scanner);
 		}
