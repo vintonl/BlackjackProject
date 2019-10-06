@@ -179,7 +179,7 @@ public class BlackJackTable {
 			} else {
 				player.clear();
 				dealer.clear();
-				dealer.callNewDeck();
+				dealer = new Dealer();
 				System.out.println();
 				System.out.println("******** Starting a new deck of cards. ********");
 				play(scanner);
