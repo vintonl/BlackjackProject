@@ -33,16 +33,14 @@ public class Dealer extends Player {
 	public void firstCardDown() {
 		List<Card> dealerCards = hand.getCards();
 
-		System.out.print("\tDealer's hand: ");
-		System.out.print("[First card face down");
+		System.out.print("\tDealer's hand: [First card face down");
 		for (int i = 1; i < dealerCards.size(); i++) {
 			System.out.print(", " + dealerCards.get(i));
 		}
 		System.out.println("]");
 	}
 
-
-	public int checkDealerDeckSize() {
+	public int checkCurrentDeckSize() {
 		return deck.checkDeckSize();
 	}
 

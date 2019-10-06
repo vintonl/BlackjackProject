@@ -169,7 +169,7 @@ public class BlackJackTable {
 		switch (again) {
 		case "yes":
 		case "y":
-			if (dealer.checkDealerDeckSize() >= MIN_DECK_SIZE) {
+			if (dealer.checkCurrentDeckSize() >= MIN_DECK_SIZE) {
 				player.clear();
 				dealer.clear();
 
