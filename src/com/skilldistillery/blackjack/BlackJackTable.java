@@ -167,8 +167,6 @@ public class BlackJackTable {
 	private void playAgain(Scanner scanner) {
 		System.out.println("Do you want to play another hand of BlackJack?");
 		
-		System.out.println("Deck size: " + dealer.checkCurrentDeckSize());
-		
 		String again = scanner.next().toLowerCase();
 		switch (again) {
 		case "yes":
