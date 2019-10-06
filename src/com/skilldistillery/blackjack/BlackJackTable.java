@@ -34,7 +34,6 @@ public class BlackJackTable {
 		System.out.println("\tPlayer's " + player);
 
 		dealer.addCardPlayer(dealer.dealCards());
-//		System.out.println("\tDealer's card delt, but not shown.");
 		dealer.firstCardDown();
 		
 		player.addCardPlayer(dealer.dealCards());
