@@ -3,9 +3,9 @@ package com.skilldistillery.dealer;
 import java.util.List;
 
 import com.skilldistillery.blackjack.BlackJackHand;
-import com.skilldistillery.blackjack.Hand;
 import com.skilldistillery.cards.Card;
 import com.skilldistillery.cards.Deck;
+import com.skilldistillery.player.Hand;
 import com.skilldistillery.player.Player;
 
 public class Dealer extends Player {
@@ -16,6 +16,7 @@ public class Dealer extends Player {
 	public Dealer() {
 		super();
 		deck = new Deck();
+		deck.shuffle();
 		hand = new BlackJackHand();
 	}
 
@@ -29,24 +30,54 @@ public class Dealer extends Player {
 		return card;
 	}
 
-	@Override
-	public void addCardPlayer(Card card) {
-		hand.addCard(card);
-	}
-
-	public void blindFirstCard() {
+	public void firstCardDown() {
 		List<Card> dealerCards = hand.getCards();
-		
+
 		System.out.print("\tDealer's hand: ");
-		System.out.print("[First card is blind");
+		System.out.print("[First card face down");
 		for (int i = 1; i < dealerCards.size(); i++) {
 			System.out.print(", " + dealerCards.get(i));
 		}
 		System.out.println("]");
 	}
 
+
+	public int checkDealerDeckSize() {
+		return deck.checkDeckSize();
+	}
+
+	public void callNewDeck() {
+		deck.newDeck();
+	}
+
+	@Override
+	public void addCardPlayer(Card card) {
+		hand.addCard(card);
+	}
+
+	@Override
+	public int askHandValue() {
+		return hand.getHandValue();
+	}
+
+	@Override
+	public boolean isTwentyOne() {
+		return hand.isTwentyOne();
+	}
+
+	@Override
 	public boolean isBust() {
 		return hand.isBust();
+	}
+
+	@Override
+	public void clear() {
+		hand.clear();
+	}
+
+	@Override
+	public boolean isBlackJack() {
+		return hand.isBlackJack();
 	}
 
 	@Override

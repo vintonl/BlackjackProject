@@ -9,7 +9,6 @@ public class Deck {
 
 	public Deck() {
 		cards = createDeck();
-		shuffle();
 	}
 
 	private List<Card> createDeck() {

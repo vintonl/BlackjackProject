@@ -2,15 +2,15 @@ package com.skilldistillery.venue;
 
 import java.util.Scanner;
 
-import com.skilldistillery.blackjack.Table;
+import com.skilldistillery.blackjack.BlackJackTable;
 
 public class Venue {
 
-	private static Table table;
+	private static BlackJackTable table;
 
 	public static void main(String[] args) {
 		Venue venue = new Venue();
-		table = new Table();
+		table = new BlackJackTable();
 		venue.run();
 	}
 

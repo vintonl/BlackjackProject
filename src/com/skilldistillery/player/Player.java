@@ -1,7 +1,6 @@
 package com.skilldistillery.player;
 
 import com.skilldistillery.blackjack.BlackJackHand;
-import com.skilldistillery.blackjack.Hand;
 import com.skilldistillery.cards.Card;
 
 public class Player {

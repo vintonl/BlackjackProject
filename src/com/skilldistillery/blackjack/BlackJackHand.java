@@ -1,6 +1,7 @@
 package com.skilldistillery.blackjack;
 
 import com.skilldistillery.cards.Card;
+import com.skilldistillery.player.Hand;
 
 public class BlackJackHand extends Hand {
 

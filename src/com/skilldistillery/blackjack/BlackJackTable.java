@@ -2,52 +2,55 @@ package com.skilldistillery.blackjack;
 
 import java.util.Scanner;
 
-import com.skilldistillery.cards.Deck;
 import com.skilldistillery.dealer.Dealer;
 import com.skilldistillery.player.Player;
 import com.skilldistillery.venue.Venue;
 
-public class Table {
+public class BlackJackTable {
 
 	private Dealer dealer;
 	private Player player;
 	private Venue venue = new Venue();
-	private Deck deck = new Deck();
 	private final int MIN_DECK_SIZE = 13;
 	private final int DEALER_HIT_MIN = 17;
 
 	public void startBlackJack(Scanner scanner) {
 
 		System.out.println("Welcome to BlackJack!");
+		System.out.println();
+		System.out.println("Notes:");
+		System.out.println("1. We will be playing with one deck of cards.");
+		System.out.println("2. Aces will have a value of 11.");
+		dealer = new Dealer();
+		player = new Player();
 		play(scanner);
 
 	}
 
 	private void play(Scanner scanner) {
-		dealer = new Dealer();
-		player = new Player();
 
 		System.out.println();
 		player.addCardPlayer(dealer.dealCards());
 		System.out.println("\tPlayer's " + player);
 
 		dealer.addCardPlayer(dealer.dealCards());
-		System.out.println("\tDealer's card delt, but not shown.");
-
+//		System.out.println("\tDealer's card delt, but not shown.");
+		dealer.firstCardDown();
+		
 		player.addCardPlayer(dealer.dealCards());
 		System.out.println("\tPlayer's " + player);
 
 		dealer.addCardPlayer(dealer.dealCards());
-		dealer.blindFirstCard();
+		dealer.firstCardDown();
 
 		checkForBlackJack(scanner);
-		hitOrStay(scanner);
+		hitOrStand(scanner);
 	}
 
-	private void hitOrStay(Scanner scanner) {
+	private void hitOrStand(Scanner scanner) {
 		printCurrentValue();
-		System.out.println();
-		System.out.println("Do you want to hit or stay?");
+		
+		System.out.println("Do you want to hit or stand?");
 		String hs = scanner.next().toLowerCase();
 
 		switch (hs) {
@@ -56,12 +59,13 @@ public class Table {
 			hit(scanner);
 			break;
 		case "s":
+		case "stand":
 		case "stay":
 			stay(scanner);
 			break;
 		default:
 			System.out.println("Input error: " + hs + "\nPlease try again.");
-			hitOrStay(scanner);
+			hitOrStand(scanner);
 			break;
 		}
 	}
@@ -69,14 +73,17 @@ public class Table {
 	private void printCurrentValue() {
 		System.out.println();
 		System.out.println("\tPlayer's hand value: " + player.askHandValue());
+		System.out.println();
+
 	}
 
 	private void hit(Scanner scanner) {
 		player.addCardPlayer(dealer.dealCards());
+
 		System.out.println("\tPlayer's cards: " + player);
 		checkValues(scanner);
 		dealerPlay(scanner);
-		hitOrStay(scanner);
+		hitOrStand(scanner);
 	}
 
 	private void stay(Scanner scanner) {
@@ -84,15 +91,17 @@ public class Table {
 	}
 
 	private void dealerPlay(Scanner scanner) {
+
 		if (dealer.askHandValue() < DEALER_HIT_MIN) {
 			dealer.addCardPlayer(dealer.dealCards());
-			dealer.blindFirstCard();
+			System.out.println("\tDealer's " + dealer);
 		}
 		checkValues(scanner);
 		checkDraw(scanner);
 	}
 
 	private void dealerPlayAfterStay(Scanner scanner) {
+
 		if (dealer.askHandValue() < DEALER_HIT_MIN) {
 			dealer.addCardPlayer(dealer.dealCards());
 			System.out.println("\tDealer's " + dealer);
@@ -142,7 +151,10 @@ public class Table {
 
 	private void checkForBlackJack(Scanner scanner) {
 
-		if (player.isBlackJack()) {
+		if (player.isBlackJack() && dealer.isBlackJack()) {
+			System.out.println("It's a draw! You and the dealer both have BlackJack.");
+			playAgain(scanner);
+		} else if (player.isBlackJack()) {
 			System.out.println("You win with BlackJack!");
 			playAgain(scanner);
 		} else if (dealer.isBlackJack()) {
@@ -158,22 +170,21 @@ public class Table {
 		switch (again) {
 		case "yes":
 		case "y":
-			if (deck.checkDeckSize() >= MIN_DECK_SIZE) {
+			if (dealer.checkDealerDeckSize() >= MIN_DECK_SIZE) {
 				player.clear();
 				dealer.clear();
+
 				play(scanner);
 			} else {
 				player.clear();
 				dealer.clear();
-				deck.newDeck();
-				System.out.println("Starting a new deck of cards.");
+				dealer = new Dealer();
+				System.out.println("*** Starting a new deck of cards. ****");
 				play(scanner);
 			}
 			break;
 		case "no":
 		case "n":
-			player.clear();
-			dealer.clear();
 			venue.venueMenu(scanner);
 			break;
 		default:
@@ -182,6 +193,5 @@ public class Table {
 			break;
 		}
 	}
-
 
 }
