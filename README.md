@@ -15,7 +15,7 @@ First, the user enters their menu selection. The user can choose to:
 Blackjack starts the game with the player playing against the dealer. The dealer deals cards to the player and the dealer’s hand.
 
 Game table information to know:
-1. Card point values: Aces will have a value of 11, Jacks, Queens, and Kings are each worth 10 points. All other cards are face value.
+1. Card point values: Aces will have a value of 11, Jacks, Queens, and Kings are each worth 10 points, and all other cards are face value.
 2. The goal is to get 21 points or be the closest to 21 without going over.
 3. We will be playing with one deck of 52 cards.
 4. The dealer will let you know when starting a new deck.
@@ -32,7 +32,7 @@ Java, Eclipse, Atom, Git, and Github.
 
 Java Libraries: ArrayList, List, enumerators, collections, and handling exceptions with try/catch.
 
-Object-Oriented Programming in Java: Abstraction, Polymorphism, Inheritance, Encapsulation, Object initiation, abstract objects, and UML diagrams.
+Object-Oriented Programming in Java: Abstraction, Polymorphism, Inheritance, Encapsulation, Object initiation, and  Unified Modeling Language (UML) diagrams.
 
 Java Fundamentals of Programming: Iteration, recursion, for loops, advanced for loops, if/else if/else statements, and a switch statement.
 
