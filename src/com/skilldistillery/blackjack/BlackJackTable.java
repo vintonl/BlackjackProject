@@ -18,9 +18,9 @@ public class BlackJackTable {
 
 		System.out.println("Welcome to BlackJack!");
 		System.out.println();
-		System.out.println("Notes:");
-		System.out.println("1. We will be playing with one deck of cards.");
-		System.out.println("2. Aces will have a value of 11.");
+		System.out.println("Items to know abou this game:");
+		System.out.println("\t1. We will be playing with one deck of cards.");
+		System.out.println("\t2. Aces will have a value of 11.");
 		dealer = new Dealer();
 		player = new Player();
 		play(scanner);
@@ -93,7 +93,7 @@ public class BlackJackTable {
 
 		if (dealer.askHandValue() < DEALER_HIT_MIN) {
 			dealer.addCardPlayer(dealer.dealCards());
-			System.out.println("\tDealer's " + dealer);
+			dealer.firstCardDown();
 		}
 		checkValues(scanner);
 		checkDraw(scanner);
