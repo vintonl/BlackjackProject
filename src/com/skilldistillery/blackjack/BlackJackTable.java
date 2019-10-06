@@ -80,7 +80,7 @@ public class BlackJackTable {
 	private void hit(Scanner scanner) {
 		player.addCardPlayer(dealer.dealCards());
 
-		System.out.println("\tPlayer's cards: " + player);
+		System.out.println("\tPlayer's " + player);
 		checkValues(scanner);
 		dealerPlay(scanner);
 		hitOrStand(scanner);
@@ -165,6 +165,7 @@ public class BlackJackTable {
 	}
 
 	private void playAgain(Scanner scanner) {
+		System.out.println();
 		System.out.println("Do you want to play another hand of BlackJack?");
 		
 		String again = scanner.next().toLowerCase();
