@@ -18,9 +18,10 @@ public class BlackJackTable {
 
 		System.out.println("Welcome to BlackJack!");
 		System.out.println();
-		System.out.println("Items to know abou this game:");
-		System.out.println("\t1. We will be playing with one deck of cards.");
-		System.out.println("\t2. Aces will have a value of 11.");
+		System.out.println("Table information to know:");
+		System.out.println("\t1. Aces will have a value of 11.");
+		System.out.println("\t2. We will be playing with one deck of cards.");
+		System.out.println("\t2. Dealer will let you know when starting a new deck.");
 		dealer = new Dealer();
 		player = new Player();
 		play(scanner);
@@ -165,6 +166,9 @@ public class BlackJackTable {
 
 	private void playAgain(Scanner scanner) {
 		System.out.println("Do you want to play another hand of BlackJack?");
+		
+		System.out.println("Deck size: " + dealer.checkCurrentDeckSize());
+		
 		String again = scanner.next().toLowerCase();
 		switch (again) {
 		case "yes":
@@ -172,13 +176,13 @@ public class BlackJackTable {
 			if (dealer.checkCurrentDeckSize() >= MIN_DECK_SIZE) {
 				player.clear();
 				dealer.clear();
-
 				play(scanner);
 			} else {
 				player.clear();
 				dealer.clear();
-				dealer = new Dealer();
-				System.out.println("*** Starting a new deck of cards. ****");
+				dealer.callNewDeck();
+				System.out.println();
+				System.out.println("******** Starting a new deck of cards. ********");
 				play(scanner);
 			}
 			break;
