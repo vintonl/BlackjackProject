@@ -2,6 +2,7 @@ package com.skilldistillery.blackjack;
 
 import java.util.Scanner;
 
+import com.skilldistillery.cards.Deck;
 import com.skilldistillery.dealer.Dealer;
 import com.skilldistillery.player.Player;
 import com.skilldistillery.venue.Venue;
@@ -11,6 +12,7 @@ public class BlackJackTable {
 	private Dealer dealer;
 	private Player player;
 	private Venue venue = new Venue();
+	private Deck deck = new Deck();
 	private final int MIN_DECK_SIZE = 13;
 	private final int DEALER_HIT_MIN = 17;
 
@@ -201,7 +203,7 @@ public class BlackJackTable {
 	private void playAgain(Scanner scanner) {
 		System.out.println();
 		System.out.println("Do you want to play another hand of BlackJack?");
-
+		
 		String again = scanner.next().toLowerCase();
 		switch (again) {
 		case "yes":
@@ -213,7 +215,7 @@ public class BlackJackTable {
 			} else {
 				player.clear();
 				dealer.clear();
-				dealer = new Dealer();
+				dealer.callNewDeck();
 				System.out.println();
 				System.out.println("******** Starting a new deck of cards. ********");
 				play(scanner);
