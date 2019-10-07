@@ -2,7 +2,6 @@ package com.skilldistillery.blackjack;
 
 import java.util.Scanner;
 
-import com.skilldistillery.cards.Deck;
 import com.skilldistillery.dealer.Dealer;
 import com.skilldistillery.player.Player;
 import com.skilldistillery.venue.Venue;
@@ -12,7 +11,6 @@ public class BlackJackTable {
 	private Dealer dealer;
 	private Player player;
 	private Venue venue = new Venue();
-	private Deck deck = new Deck();
 	private final int MIN_DECK_SIZE = 13;
 	private final int DEALER_HIT_MIN = 17;
 
