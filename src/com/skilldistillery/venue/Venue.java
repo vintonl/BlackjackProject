@@ -25,7 +25,6 @@ public class Venue {
 	}
 
 	public void venueMenu(Scanner scanner) {
-//		boolean status = false;
 		System.out.println();
 		System.out.println("Please choose from the options below.");
 		System.out.println("1. Play BackJack.");
