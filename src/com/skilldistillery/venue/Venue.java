@@ -1,5 +1,6 @@
 package com.skilldistillery.venue;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.skilldistillery.blackjack.BlackJackTable;
@@ -7,7 +8,7 @@ import com.skilldistillery.blackjack.BlackJackTable;
 public class Venue {
 
 	private static BlackJackTable table;
-	
+
 	public static void main(String[] args) {
 		Venue venue = new Venue();
 		table = new BlackJackTable();
@@ -18,10 +19,13 @@ public class Venue {
 		Scanner scanner = new Scanner(System.in);
 
 		System.out.println("Welcome to a garage full of table games.");
+
 		venueMenu(scanner);
+
 	}
 
 	public void venueMenu(Scanner scanner) {
+//		boolean status = false;
 		System.out.println();
 		System.out.println("Please choose from the options below.");
 		System.out.println("1. Play BackJack.");
@@ -31,9 +35,8 @@ public class Venue {
 
 		try {
 			selection = scanner.nextInt();
-		} catch (Exception e) {
-			System.err.println("Error: Unexpected value: " + selection);
-			venueMenu(scanner);
+		} catch (InputMismatchException e) {
+			
 		}
 
 		switch (selection) {
@@ -46,9 +49,7 @@ public class Venue {
 			break;
 		default:
 			System.err.println("Error: Unexpected value: " + selection);
-			venueMenu(scanner);
-			break;
+			run();
 		}
 	}
-
 }
