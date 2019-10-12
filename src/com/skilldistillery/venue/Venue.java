@@ -7,11 +7,8 @@ import com.skilldistillery.blackjack.BlackJackTable;
 
 public class Venue {
 
-	private static BlackJackTable table;
-
 	public static void main(String[] args) {
 		Venue venue = new Venue();
-		table = new BlackJackTable();
 		venue.run();
 	}
 
@@ -40,6 +37,7 @@ public class Venue {
 
 		switch (selection) {
 		case 1:
+			BlackJackTable table = new BlackJackTable();
 			table.startBlackJack(scanner);
 			break;
 		case 2:
@@ -47,7 +45,7 @@ public class Venue {
 			System.exit(0);
 			break;
 		default:
-			System.err.println("Error: Unexpected value: " + selection);
+			System.err.println("Error: Unexpected value entered");
 			run();
 		}
 	}

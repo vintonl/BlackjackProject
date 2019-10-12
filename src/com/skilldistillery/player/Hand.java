@@ -15,7 +15,6 @@ public abstract class Hand {
 
 	public Hand(List<Card> cards) {
 		super();
-
 		this.cards = cards;
 	}
 
