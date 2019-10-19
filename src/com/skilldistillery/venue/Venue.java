@@ -18,7 +18,6 @@ public class Venue {
 		System.out.println("Welcome to a garage full of table games.");
 
 		venueMenu(scanner);
-
 	}
 
 	public void venueMenu(Scanner scanner) {
@@ -32,20 +31,19 @@ public class Venue {
 		try {
 			selection = scanner.nextInt();
 		} catch (InputMismatchException e) {
-			
 		}
 
 		switch (selection) {
 		case 1:
-			BlackJackTable table = new BlackJackTable();
-			table.startBlackJack(scanner);
+			BlackJackTable blackJackTable = new BlackJackTable();
+			blackJackTable.startBlackJack(scanner);
 			break;
 		case 2:
 			System.out.println("Thanks, and have a great one!");
 			System.exit(0);
 			break;
 		default:
-			System.err.println("Error: Unexpected value entered");
+			System.err.println("Error: Unexpected value entered.");
 			run();
 		}
 	}

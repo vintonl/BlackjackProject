@@ -15,7 +15,6 @@ public class BlackJackTable {
 	private final int DEALER_HIT_MIN = 17;
 
 	public void startBlackJack(Scanner scanner) {
-
 		System.out.println("Welcome to BlackJack!");
 		System.out.println();
 		System.out.println("Game table information to know:");
@@ -26,10 +25,11 @@ public class BlackJackTable {
 		System.out.println("\t2. The Goal is to get 21 points or be the closest to 21 without going over.");
 		System.out.println("\t3. We will be playing with one deck of 52 cards.");
 		System.out.println("\t4. The dealer will let you know when starting a new deck.");
+	
 		dealer = new Dealer();
 		player = new Player();
+	
 		play(scanner);
-
 	}
 
 	private void play(Scanner scanner) {
@@ -48,7 +48,7 @@ public class BlackJackTable {
 		dealer.firstCardDown();
 
 		printPlayerCurrentValue();
-		
+
 		checkForBlackJack(scanner);
 		hitOrStand(scanner);
 	}
@@ -94,20 +94,12 @@ public class BlackJackTable {
 		System.out.println("\tPlayer's " + player);
 		printPlayerCurrentValue();
 
-//		dealerPlay(scanner);
 		checkValues(scanner);
 		playersTurn(scanner);
 	}
 
 	private void stand(Scanner scanner) {
 		dealerPlayAfterStand(scanner);
-	}
-
-	private void dealerPlay(Scanner scanner) {
-		if (dealer.askHandValue() < DEALER_HIT_MIN) {
-			dealer.addCardPlayer(dealer.dealCards());
-			dealer.firstCardDown();
-		}
 	}
 
 	private void playersTurn(Scanner scanner) {
