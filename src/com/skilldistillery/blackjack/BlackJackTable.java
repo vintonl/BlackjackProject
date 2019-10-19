@@ -47,12 +47,13 @@ public class BlackJackTable {
 		dealer.addCardPlayer(dealer.dealCards());
 		dealer.firstCardDown();
 
+		printPlayerCurrentValue();
+		
 		checkForBlackJack(scanner);
 		hitOrStand(scanner);
 	}
 
 	private void hitOrStand(Scanner scanner) {
-		printPlayerCurrentValue();
 
 		System.out.println("Do you want to hit or stand?");
 		String hs = scanner.next().toLowerCase();
@@ -93,13 +94,13 @@ public class BlackJackTable {
 		System.out.println("\tPlayer's " + player);
 		printPlayerCurrentValue();
 
+//		dealerPlay(scanner);
 		checkValues(scanner);
-		dealerPlay(scanner);
-		hitOrStand(scanner);
+		playersTurn(scanner);
 	}
 
 	private void stand(Scanner scanner) {
-		dealerPlayAfterStay(scanner);
+		dealerPlayAfterStand(scanner);
 	}
 
 	private void dealerPlay(Scanner scanner) {
@@ -107,8 +108,6 @@ public class BlackJackTable {
 			dealer.addCardPlayer(dealer.dealCards());
 			dealer.firstCardDown();
 		}
-
-		playersTurn(scanner);
 	}
 
 	private void playersTurn(Scanner scanner) {
@@ -116,42 +115,40 @@ public class BlackJackTable {
 			hitOrStand(scanner);
 		} else {
 			checkValues(scanner);
-			checkDraw(scanner);
+			checkPush(scanner);
 		}
-		
 	}
 
-	private void dealerPlayAfterStay(Scanner scanner) {
+	private void dealerPlayAfterStand(Scanner scanner) {
 		if (dealer.askHandValue() < DEALER_HIT_MIN) {
 			dealer.addCardPlayer(dealer.dealCards());
 			dealer.firstCardDown();
 		} else {
 			checkValues(scanner);
-			checkDraw(scanner);
+			checkPush(scanner);
 		}
-		dealerPlayAfterStay(scanner);
+		dealerPlayAfterStand(scanner);
 	}
 
-	private void checkDraw(Scanner scanner) {
+	private void checkPush(Scanner scanner) {
 		if (player.askHandValue() == dealer.askHandValue()) {
-			System.out.println("It is a tie. ");
+			dealerShowsAllCards();
+			System.out.println("It is a push (tie). ");
 			playAgain(scanner);
 		}
 		checkHighest(scanner);
 	}
 
 	private void checkHighest(Scanner scanner) {
-		dealerShowsAllCards();
-
 		if (player.askHandValue() > dealer.askHandValue()) {
+			dealerShowsAllCards();
 			System.out.println("You win with a higher hand value!");
-
 			playAgain(scanner);
 		} else {
+			dealerShowsAllCards();
 			System.out.println("You loose with a lower hand value.");
 			playAgain(scanner);
 		}
-
 	}
 
 	private void checkValues(Scanner scanner) {
@@ -168,14 +165,13 @@ public class BlackJackTable {
 			System.out.println("You loose, and the dealer wins with 21.");
 			playAgain(scanner);
 		} else if (player.isBust()) {
+			dealerShowsAllCards();
 			System.out.println("Your hand is a bust, and the dealer wins.");
 			playAgain(scanner);
 		}
-
 	}
 
 	private void checkForBlackJack(Scanner scanner) {
-
 		if (player.isBlackJack() && dealer.isBlackJack()) {
 			dealerShowsAllCards();
 			System.out.println("It's a draw! You and the dealer both have BlackJack.");
@@ -189,7 +185,6 @@ public class BlackJackTable {
 			System.out.println("The dealer wins with BlackJack.");
 			playAgain(scanner);
 		}
-
 	}
 
 	private void dealerShowsAllCards() {
@@ -201,7 +196,7 @@ public class BlackJackTable {
 	private void playAgain(Scanner scanner) {
 		System.out.println();
 		System.out.println("Do you want to play another hand of BlackJack?");
-		
+
 		String again = scanner.next().toLowerCase();
 		switch (again) {
 		case "yes":
@@ -229,5 +224,4 @@ public class BlackJackTable {
 			break;
 		}
 	}
-
 }
